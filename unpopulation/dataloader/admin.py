@@ -24,4 +24,5 @@ class ContryGroupAdmin(admin.ModelAdmin):
     list_display = ("country_group", "get_group")
 
     def get_group(self, obj):
-        return "\n".join([a.country for a in obj.populationdata_set.all().distinct('country')])
+        dist = obj.populationdata_set.all().distinct('country')
+        return "\n".join([a.country for a in dist])

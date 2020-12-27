@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
     def get_csv(self, csv_file):
         path = apps.get_app_config('dataloader').path
-        file_path = os.path.join(path, "management", "commands", csv_file)
+        file_path = os.path.join(path, "csvdata", csv_file)
         return file_path
 
     def handle(self, *args, **options):
@@ -56,7 +56,5 @@ class Command(BaseCommand):
                     if line[0] in Regions.g7:
                         data.group.add(g_g7)
 
-                    data.save()
-                # self.insert_to_db(data)
         except FileNotFoundError:
             raise CommandError("File does not exist")
