@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+{% block nav-content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 my-2">
+            <div class="card">
+                <div class="card-header">
+                    Problem Statement-1
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Year vs Population</h5>
+                    <p class="card-text">Select the country of your choice from the list of countries and specify the start and end year</p>
+                    <a href="{% url 'first_view' %}" class="btn btn-primary">Plot now</a>
+                </div>  
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="card">
+                <div class="card-header">
+                    Problem Statement-2
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Country vs Population for each country union</h5>
+                    <p class="card-text">Select the country union and the year you wish for which you wish to plot</p>
+                    <a href="{% url 'second_view' %}" class="btn btn-primary">Plot now</a>
+                </div>  
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="card">
+                <div class="card-header">
+                    Problem Statement-1
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Year vs Total-Population for each country union</h5>
+                    <p class="card-text">Select the country union and specify the start and end year for plotting</p>
+                    <a href="{% url 'third_view' %}" class="btn btn-primary">Plot now</a>
+                </div>  
+            </div>
+        </div>
+        <div class="col-sm-6 my-2">
+            <div class="card">
+                <div class="card-header">
+                    Problem Statement-1
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Year vs Population grouped by countries</h5>
+                    <p class="card-text">Select the country union and specify the start and end year for plotting</p>
+                    <a href="{% url 'fourth_view' %}" class="btn btn-primary">Plot now</a>
+                </div>  
+            </div>
+        </div>
+        </div>
+        </div>
+
+        
+{% endblock %}

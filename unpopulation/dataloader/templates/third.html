@@ -1,0 +1,89 @@
+{% extends "navigation.html" %}
+{% block content %}
+<h4 class="text-center">Problem Statement-3</h1>
+<form id="thirdplot">
+    <label for="group">Choose union</label>
+        <select id="group" name="group">
+            {% for g in groups %}
+                <option value="{{ g }}">{{ g }}</option>
+            {% endfor %}
+        </select>
+        <label for="start">start year</label>
+        <select id="start" name="start">
+            {% for s in start %}
+                <option value="{{ s }}">{{ s }}</option>
+            {% endfor %}
+        </select>
+        <label for="end">end year</label>
+        <select id="end" name="end">
+            {% for e in end %}
+                <option value="{{ e }}">{{ e }}</option>
+            {% endfor %}
+        </select>
+<input type="submit" value="plot now" class="mx-2 btn-primary">
+</form>
+<div class="container">
+    <div class="row">
+        <div class="col card" id = "plothere"></div>
+    </div>
+</div>
+<script>
+    document.getElementById('thirdplot').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formdata = new FormData(e.target);
+      var object = {}
+      
+      formdata.forEach(function(value, key){
+          object[key] = value;
+      });
+      console.log(object)
+      var output = document.getElementById('output');
+      fetch("http://127.0.0.1:8000/third/", {
+          method:"POST",
+          body: JSON.stringify(object),
+          contentType: 'application/json; charset=UTF-8'
+          
+      })
+      .then(response => response.json())
+      .then(data => {
+            let x_values = [];
+            let y_values = [];
+            for(let i in data){ 
+                x_values.push(data[i].year)
+                y_values.push(data[i].total_population)
+            }
+            console.log(x_values)
+            console.log(y_values)
+            var container = document.getElementById('plothere')
+
+            window.chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: container,
+                    height: 400,
+                    type: 'column'
+                },
+                title: {
+                    text: 'Year vs Total-Population for each country union'
+                },
+                xAxis: {
+                    title: {
+                        text: 'country'
+                    },
+                    categories: x_values
+                },
+                yAxis: {
+                    title: {
+                        text: 'Population'
+                    },
+                },
+                series: [{
+                    name: "total population",
+                    data: y_values
+                }]
+            });            
+                });
+            });
+      </script>
+    
+      
+{% endblock %}
