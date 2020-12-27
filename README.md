@@ -31,5 +31,5 @@ Django Rest Framework version of the data project
         python manage.py runserver
 7. To view the problem statements open browser and got to [http://127.0.0.1:8000](http://127.0.0.1:8000)
 8. Browse through the problem statements.
-9. Plot graphs as specified in the user stories
-10. Drop role and dataabse by running the remover.sql file in postgres.
+9. Plot graphs as specified in the user stories.
+10. Drop role and database by running the remover.sql file in postgres.
