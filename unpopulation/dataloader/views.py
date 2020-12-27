@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import FirstSerializer, SecondSerializer, PopulationDataSerializer
+from .serializers import FirstSerializer, SecondSerializer
 from .models import PopulationData, CountryGroup
 import json
 from django.db.models import Sum
