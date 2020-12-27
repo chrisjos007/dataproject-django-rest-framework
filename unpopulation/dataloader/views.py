@@ -23,7 +23,10 @@ def first_view(request):
     for entry in year_data:
         years.append(entry['year'])
     years = sorted(years)
-    return render(request, 'first.html', {'countries': countries, 'start': years[:-5:], 'end': years[5::]})
+    return render(
+        request, 'first.html',
+        {'countries': countries, 'start': years[:-5:], 'end': years[5::]}
+        )
 
 
 @api_view(['GET', 'POST'])
@@ -39,7 +42,8 @@ def first(request):
         startyear = int(data["start"])
         endyear = int(data["end"])
 
-        queryset = PopulationData.objects.all().filter(country=country, year__range=(startyear, endyear))
+        queryset = PopulationData.objects.all().\
+            filter(country=country, year__range=(startyear, endyear))
         serializer = FirstSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -69,8 +73,10 @@ def second(request):
         data = json.loads(request.body)
         group_data = data["group"]
         year = int(data["year"])
-        group_obj = CountryGroup.objects.filter(country_group=group_data).first()
-        queryset = PopulationData.objects.all().filter(year=year, group=group_obj)
+        group_obj = CountryGroup.objects.\
+            filter(country_group=group_data).first()
+        queryset = PopulationData.objects.all().\
+            filter(year=year, group=group_obj)
         serializer = FirstSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -86,7 +92,10 @@ def third_view(request):
     for entry in year_data:
         years.append(entry['year'])
     years = sorted(years)
-    return render(request, 'third.html', {'groups': groups, 'start': years[:-5:], 'end': years[5::]})
+    return render(
+        request, 'third.html',
+        {'groups': groups, 'start': years[:-5:], 'end': years[5::]}
+        )
 
 
 @api_view(['GET', 'POST'])
@@ -102,8 +111,11 @@ def third(request):
         group_data = data["group"]
         startyear = int(data["start"])
         endyear = int(data["end"])
-        group_obj = CountryGroup.objects.filter(country_group=group_data).first()
-        queryset = PopulationData.objects.values('year').filter(group=group_obj, year__range=(startyear, endyear)).annotate(total_population=Sum('population')).order_by('year')
+        group_obj = CountryGroup.objects.\
+            filter(country_group=group_data).first()
+        queryset = PopulationData.objects.values('year').\
+            filter(group=group_obj, year__range=(startyear, endyear)).\
+            annotate(total_population=Sum('population')).order_by('year')
         serializer = SecondSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -120,14 +132,18 @@ def fourth_view(request):
         years.append(entry['year'])
     years = sorted(years)
     return render(
-        request, 'fourth.html', {'groups': groups, 'start': years[:-5:], 'end': years[5::]})
+        request, 'fourth.html',
+        {'groups': groups, 'start': years[:-5:], 'end': years[5::]}
+        )
 
 
 @api_view(['GET', 'POST'])
 @csrf_exempt
 def fourth(request):
     if request.method == 'GET':
-        queryset = PopulationData.objects.values('country', 'population', 'year').order_by('year').all()[0:20]
+        queryset = PopulationData.objects.\
+            values('country', 'population', 'year').\
+            order_by('year').all()[0:20]
         serializer = FirstSerializer(queryset, many=True)
         return Response(serializer.data)
     else:
@@ -135,7 +151,11 @@ def fourth(request):
         group_data = data["group"]
         startyear = int(data["start"])
         endyear = int(data["end"])
-        group_obj = CountryGroup.objects.filter(country_group=group_data).first()
-        queryset = PopulationData.objects.values('country', 'population', 'year').filter(group=group_obj, year__range=(startyear, endyear)).order_by('year')
+        group_obj = CountryGroup.objects.\
+            filter(country_group=group_data).first()
+        queryset = PopulationData.objects.\
+            values('country', 'population', 'year').\
+            filter(group=group_obj, year__range=(startyear, endyear)).\
+            order_by('year')
         serializer = FirstSerializer(queryset, many=True)
         return Response(serializer.data)
