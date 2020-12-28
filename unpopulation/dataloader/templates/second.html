@@ -36,7 +36,6 @@
             method:"POST",
             body: JSON.stringify(object),
             contentType: 'application/json; charset=UTF-8'
-            
         })
         .then(response => response.json())
         .then(data => {
@@ -46,8 +45,6 @@
                 x_values.push(data[i].country)
                 y_values.push(data[i].population)
             }
-            console.log(x_values)
-            console.log(y_values)
             var container = document.getElementById('plothere')
 
             window.chart = new Highcharts.Chart({

@@ -28,57 +28,57 @@
         <div class="col card" id="plothere"></div>
     </div>
 </div>
-    <script>
-        document.getElementById('firstplot').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formdata = new FormData(e.target);
-            var object = {}
-            
-            formdata.forEach(function(value, key){
-                object[key] = value;
-            });
+<script>
+    document.getElementById('firstplot').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formdata = new FormData(e.target);
+        var object = {}
+        
+        formdata.forEach(function(value, key){
+            object[key] = value;
+        });
 
-            fetch("http://127.0.0.1:8000/first/", {
-                method:"POST",
-                body: JSON.stringify(object),
-                contentType: 'application/json; charset=UTF-8'    
-            })
-            .then(response => response.json())
-            .then(data => {
-                let x_values = [];
-                let y_values = [];
-                for(let i in data){
-                    x_values.push(data[i].year)
-                    y_values.push(data[i].population)
-                }
-                var container = document.getElementById('plothere')
+        fetch("http://127.0.0.1:8000/first/", {
+            method:"POST",
+            body: JSON.stringify(object),
+            contentType: 'application/json; charset=UTF-8'    
+        })
+        .then(response => response.json())
+        .then(data => {
+            let x_values = [];
+            let y_values = [];
+            for(let i in data){
+                x_values.push(data[i].year)
+                y_values.push(data[i].population)
+            }
+            var container = document.getElementById('plothere')
 
-                window.chart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: container,
-                        height: 450,
-                        type: 'column'
-                    },
+            window.chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: container,
+                    height: 450,
+                    type: 'column'
+                },
+                title: {
+                    text: 'Year vs Population'
+                },
+                xAxis: {
                     title: {
-                        text: 'Year vs Population'
+                        text: 'Year'
                     },
-                    xAxis: {
-                        title: {
-                            text: 'Year'
-                        },
-                        categories: x_values
+                    categories: x_values
+                },
+                yAxis: {
+                    title: {
+                        text: 'Population'
                     },
-                    yAxis: {
-                        title: {
-                            text: 'Population'
-                        },
-                    },
-                    series: [{
-                        name: "population",
-                        data: y_values
-                    }]
-                });
+                },
+                series: [{
+                    name: "population",
+                    data: y_values
+                }]
             });
         });
-    </script>
+    });
+</script>
 {% endblock %}
