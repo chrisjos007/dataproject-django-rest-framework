@@ -1,4 +1,7 @@
 class Regions:
+    """
+    Contains the list of nation unions
+    """
 
     # list of SAARC nations
     saarc = [

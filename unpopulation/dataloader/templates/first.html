@@ -38,8 +38,6 @@
                 object[key] = value;
             });
 
-            console.log(object)
-            var output = document.getElementById('output');
             fetch("http://127.0.0.1:8000/first/", {
                 method:"POST",
                 body: JSON.stringify(object),

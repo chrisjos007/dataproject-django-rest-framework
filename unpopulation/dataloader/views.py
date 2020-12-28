@@ -1,7 +1,7 @@
+import json
 from django.shortcuts import render
 from .serializers import FirstSerializer, SecondSerializer
 from .models import PopulationData, CountryGroup
-import json
 from django.db.models import Sum
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
@@ -9,11 +9,15 @@ from rest_framework.decorators import api_view
 
 
 def home(request):
+    ''' Generates a home view page '''
+
     return render(request, 'home.html')
 
 
 @csrf_exempt
 def first_view(request):
+    ''' Generates a template for first problem statement '''
+
     country_data = PopulationData.objects.all().values('country').distinct()
     year_data = PopulationData.objects.all().values('year').distinct()
     countries = list()
@@ -32,6 +36,8 @@ def first_view(request):
 @api_view(['GET', 'POST'])
 @csrf_exempt
 def first(request):
+    ''' Returns a serialized response for first problem statement '''
+
     if request.method == 'GET':
         queryset = PopulationData.objects.all()[0:50]
         serializer = FirstSerializer(queryset, many=True)
@@ -50,6 +56,8 @@ def first(request):
 
 @csrf_exempt
 def second_view(request):
+    ''' Generates a template for second problem statement '''
+
     country_group = CountryGroup.objects.all()
     year_data = PopulationData.objects.all().values('year').distinct()
     groups = list()
@@ -65,6 +73,8 @@ def second_view(request):
 @api_view(['GET', 'POST'])
 @csrf_exempt
 def second(request):
+    ''' Returns a serialized response for second problem statement '''
+
     if request.method == 'GET':
         queryset = PopulationData.objects.all()[0:50]
         serializer = FirstSerializer(queryset, many=True)
@@ -83,6 +93,8 @@ def second(request):
 
 @csrf_exempt
 def third_view(request):
+    ''' Generates a template for third problem statement '''
+
     country_group = CountryGroup.objects.all()
     year_data = PopulationData.objects.all().values('year').distinct()
     groups = list()
@@ -101,6 +113,8 @@ def third_view(request):
 @api_view(['GET', 'POST'])
 @csrf_exempt
 def third(request):
+    ''' Returns a serialized response for third problem statement '''
+
     if request.method == 'GET':
         queryset = PopulationData.objects.values('year').\
             annotate(total_population=Sum('population')).order_by('year')
@@ -122,6 +136,8 @@ def third(request):
 
 @csrf_exempt
 def fourth_view(request):
+    ''' Generates a template for fourth problem statement '''
+
     country_group = CountryGroup.objects.all()
     year_data = PopulationData.objects.all().values('year').distinct()
     groups = list()
@@ -140,6 +156,8 @@ def fourth_view(request):
 @api_view(['GET', 'POST'])
 @csrf_exempt
 def fourth(request):
+    ''' Returns a serialized response for fourth problem statement '''
+
     if request.method == 'GET':
         queryset = PopulationData.objects.\
             values('country', 'population', 'year').\

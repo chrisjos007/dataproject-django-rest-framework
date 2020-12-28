@@ -7,17 +7,27 @@ from ._private import Regions
 
 
 class Command(BaseCommand):
+    """
+    Custom command code to load database from csv file
+    Populates the main model and multi relations model
+    """
+
     help = 'collects data from csv and loads to database'
 
     def add_arguments(self, parser):
         pass
 
     def get_csv(self, csv_file):
+        """ function to get the path to the csv file """
         path = apps.get_app_config('dataloader').path
         file_path = os.path.join(path, "csvdata", csv_file)
         return file_path
 
     def handle(self, *args, **options):
+        """
+        Handler function that loops through the csv
+        populates the tables based on conditions
+        """
         g_saarc = CountryGroup(country_group='SAARC')
         g_saarc.save()
         g_asean = CountryGroup(country_group='ASEAN')
@@ -28,10 +38,12 @@ class Command(BaseCommand):
         g_brics.save()
         g_g7 = CountryGroup(country_group='G7')
         g_g7.save()
+
+        # obtains the path to csv file
         path = self.get_csv('popest.csv')
+
         try:
             with open(path, 'r') as newfile:
-                data = []
                 csv_read = csv.reader(newfile, delimiter=',')
                 for line in csv_read:
                     data = PopulationData(
