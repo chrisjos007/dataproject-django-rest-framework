@@ -33,7 +33,7 @@ def first_view(request):
 @csrf_exempt
 def first(request):
     if request.method == 'GET':
-        queryset = PopulationData.objects.all()[0:10]
+        queryset = PopulationData.objects.all()[0:50]
         serializer = FirstSerializer(queryset, many=True)
         return Response(serializer.data)
     else:
@@ -66,7 +66,7 @@ def second_view(request):
 @csrf_exempt
 def second(request):
     if request.method == 'GET':
-        queryset = PopulationData.objects.all()[0:10]
+        queryset = PopulationData.objects.all()[0:50]
         serializer = FirstSerializer(queryset, many=True)
         return Response(serializer.data)
     else:

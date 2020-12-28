@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls',
          namespace='rest_framework')),
-    path('', views.home, name="first page"),
+    path('', views.home, name="home_page"),
     path('first/', views.first, name="first_api"),
     path('home/', views.first_view, name="first_view"),
 
