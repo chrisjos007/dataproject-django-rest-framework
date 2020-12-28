@@ -4,17 +4,18 @@
 <form id="firstplot">
     <label for="countries" class="mx-2">country</label>
     <select id="countries" name="country">
+        <option selected="selected">--select--</option>
         {% for country in countries %}
             <option value="{{ country }}">{{ country }}</option>
         {% endfor %}
     </select>
-    <label for="start" class="ml-4 mr-2">Start year</label>
+    <label for="start" class="ml-4 mr-2">start year</label>
     <select id="start" name="start">
         {% for s in start %}
             <option value="{{ s }}">{{ s }}</option>
         {% endfor %}
     </select>
-    <label for="end" class="ml-4 mr-2">End year</label>
+    <label for="end" class="ml-4 mr-2">end year</label>
     <select id="end" name="end">
         {% for e in end %}
             <option value="{{ e }}">{{ e }}</option>
@@ -36,6 +37,7 @@
             formdata.forEach(function(value, key){
                 object[key] = value;
             });
+
             console.log(object)
             var output = document.getElementById('output');
             fetch("http://127.0.0.1:8000/first/", {

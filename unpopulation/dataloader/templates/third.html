@@ -2,8 +2,9 @@
 {% block content %}
 <h4 class="text-center">Problem Statement-3</h4><hr>
 <form id="thirdplot">
-    <label for="group" class="mx-2">Choose union</label>
+    <label for="group" class="mx-2">Union</label>
     <select id="group" name="group">
+        <option selected="selected">--select--</option>
         {% for g in groups %}
             <option value="{{ g }}">{{ g }}</option>
         {% endfor %}
